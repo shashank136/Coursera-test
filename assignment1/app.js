@@ -13,6 +13,7 @@
 				for(var i=0; i<$scope.menu.length; i++){
 					if($scope.menu[i]==="\"\"" || $scope.menu[i]===''){
 						$scope.menu.splice(i,1);
+						i--;
 					}
 				}
 
@@ -25,7 +26,6 @@
 				else{
 					$scope.test = "Too much!";
 				}
-
 			};		
 		};
 })();
