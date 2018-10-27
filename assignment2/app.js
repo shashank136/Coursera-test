@@ -32,7 +32,8 @@
 			{ name: "cat food", quantity: 10	},
 			{ name: "dog food", quantity: 12	},
 			{ name: "fish food", quantity: 5	},
-			{ name: "human food", quantity: 4 	}
+			{ name: "human food", quantity: 4 	},
+			{ name: "Cow food", quantity: 14 	}
 		];
 
 		var boughtList = [];
