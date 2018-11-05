@@ -3,7 +3,7 @@
 
 	angular.module('MyMenuApp', [])
 			.controller('MyMenuController', MyMenuController)
-			.factory('MenuFactory', MenuFactory)
+			.service('GetMenuService', GetMenuService)
 			.component('foundItems', FoundItems)
 			.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
 
@@ -23,21 +23,47 @@
 		return ddo;
 	};
 
-	MyMenuController.$inject = ['MenuFactory'];
-	function MyMenuController(MenuFactory){
+	MyMenuController.$inject = ['GetMenuService'];
+	function MyMenuController(GetMenuService){
 		var menu = this;
-
-		// Using factory to create new Menu list service
-		var menuList = MenuFactory();
 
 		menu.found = [];
 		menu.nothing = true;
 		menu.item = "";
+		menu.items = "";
 
 		// Add item to found list
 		menu.listFound = function(){
-			menu.items = menuList.getMenu();
-			if(menu.item!=="\"\"" || menu.item!==''){
+
+			var promise = GetMenuService.getMenu();
+
+			promise.then(function(response){
+
+				menu.items = response.data;
+
+				console.log(menu.items);
+				// debugger;
+				
+				/*if(menu.item!=="\"\"" || menu.item!==''){
+					for(var i=0; i<menu.items.length; i++){
+						var temp = menu.items[i].description;
+						if(temp.includes(menu.item)){
+							// push the items into the found array
+							menu.nothing = false;
+							var tt = {
+								short_name: menu.items[i].short_name,
+								description: menu.items[i].description
+							}
+							found.push(tt);
+						}
+					}
+				}*/
+
+			}).catch(function(error){
+				console.log("Something went worng.");
+			});
+
+			/*if(menu.item!=="\"\"" || menu.item!==''){
 				for(var i=0; i<menu.items.length; i++){
 					var temp = menu.items[i].description;
 					if(temp.includes(menu.item)){
@@ -50,7 +76,7 @@
 						found.push(tt);
 					}
 				}
-			}
+			}*/
 		};
 
 		// remove item from found array
@@ -66,25 +92,13 @@
 		var service = this
 
 		service.getMenu = function(){
-			var responce = $http({
+			var response = $http({
 				method: "GET",
 				url: (ApiBasePath + "/menu_items.json")
-			}).then(
-			function(response){
-				return response;
 			});
 
-			return responce;
+			return response;
 		};
-	}
-
-	// Factory to get the service
-	function MenuFactory(){
-		var factory = function($http, ApiBasePath){
-			return new GetMenuService($http, ApiBasePath);
-		}
-
-		return factory;
 	}
 
 })();
