@@ -11,16 +11,20 @@
 <body ng-app="MyMenuApp">
    <div class="container" ng-controller="MyMenuController as dish">
     <h1>Narrow Down Your Chinese Menu Choice</h1>
-
-    <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control" ng-model="dish.item">
-    </div>
-    <div class="form-group narrow-button">
-      <button class="btn btn-primary" ng-click="dish.listFound()">Narrow It Down For Me!</button>
-    </div>
-
-    <!-- found-items should be implemented as a component -->
-    <found-items found="dish.found" on-remove="dish.removeItem(index)"></found-items>
+    <!-- <table>
+      <tr> -->
+        <div class="form-group">
+          <input type="text" placeholder="search term" class="form-control" ng-model="dish.searchString">
+        </div>
+        <div class="form-group narrow-button">
+          <button class="btn btn-primary" ng-click="dish.listFound()">Narrow It Down For Me!</button>
+        </div><br><br><br>
+      <!-- </tr>
+      <tr> -->
+        <!-- found-items should be implemented as a component -->
+        <found-items found="dish.found" on-remove="dish.removeItem(index)" nothing="dish.nothing"></found-items>
+      <!-- </tr>
+    </table> -->    
   </div>
 
 </body>

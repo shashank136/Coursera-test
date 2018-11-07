@@ -1,9 +1,11 @@
 <div>
 	<div ng-if="dish.nothing">Nothing found</div>
+	<div>
 		<ul>
-			<li ng-repeat="item in dish.items">
-				{{item.short_name}}, {{item.description}}
+			<li ng-repeat="item in dish.found">
+				{{item.sName}}, {{item.des}}
 				<button ng-click="dish.removeItem($index);">Remove Item</button>
 			</li>
 		</ul>
+	</div>
 </div>
